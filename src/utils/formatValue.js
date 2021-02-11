@@ -1,14 +1,12 @@
 import 'intl';
-import 'intl/locale-data/jsonp/pt-BR';
+import 'intl/locale-data/jsonp/pt-BR.js';
 
-const formatValue = (value) => {
-    new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-    }).format(value)
+function formatValue(value) {
+    return new Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(value);
 }
 
 export default formatValue
+
 
 
 

@@ -49,7 +49,8 @@ export default function Catalogo() {
                             <ProductImage source={{ uri: item.image_url }} />
                             <ProductTitle>{item.title}</ProductTitle>
                             <PriceContainer>
-                                <ProductPrice>R$ {item.price}</ProductPrice>
+                                {/* <ProductPrice>R$ {item.price}</ProductPrice> */}
+                                <ProductPrice>{`${formatValue(item.price)}`}</ProductPrice>
                                 <ProductButton onPress={() => { }}>
                                     <ProductButtonText>Adicionar</ProductButtonText>
                                     <Feather size={30} name="plus-circle" color="#d1d7e9" />
