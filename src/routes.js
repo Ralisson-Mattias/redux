@@ -33,7 +33,11 @@ export default function Routes() {
                     name="Cart"
                     component={Cart}
                     options={{
-                        headerTransparent: true,
+                        headerTransparent: false,
+                        headerStyle: {
+                            backgroundColor: '#313746',
+                            elevation: 0
+                        },
                         headerTitle: () => <Header screen="Cart"/>,
                         headerBackTitleVisible: false,
                         headerLeftContainerStyle: {
