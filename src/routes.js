@@ -6,6 +6,9 @@ import { Feather } from '@expo/vector-icons'
 import Catalogo from './pages/Catalogo'
 import Cart from './pages/Cart'
 import Header from './components/Header'
+import { Image } from 'react-native'
+
+import Market from '../assets/market.png'
 
 const Stack = createStackNavigator()
 
@@ -15,7 +18,8 @@ export default function Routes() {
             <Stack.Navigator
                 screenOptions={{
                     headerShown: true,
-                    cardStyle: { backgroundColor: '#313746' }
+                    cardStyle: { backgroundColor: '#313746' },
+                    
                 }}
                 initialRouteName="Catalogo"
             >
@@ -23,9 +27,12 @@ export default function Routes() {
                     name="Catalogo"
                     component={Catalogo}
                     options={{
-                        headerShown: true,
-                        headerTransparent: true,
-                        headerTitle: () => <Header screen="Catalogo"/>
+                        headerStyle: {
+                            backgroundColor: '#313746',
+                            elevation: 0,
+                        },
+                        headerTitle: () => <Image source={Market}/>,
+                        headerTitleAlign: 'center'
                     }}
                 />
 

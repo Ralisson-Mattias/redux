@@ -17,13 +17,13 @@ export const ProductContainer = styled.View`
 export const ProductList = styled(FlatList)`
     flex: 1;
     padding: 30px 10px;
+    margin-bottom: 60px;
 `
 
 export const Product = styled.View`
-    flex: 1;
     flex-direction: row;
-    margin: 5px;
     background: #fff;
+    margin: 5px; 
     min-width: 350px;
     min-width: 130px;
     padding: 15px 10px;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Feather } from '@expo/vector-icons'
 import { View } from 'react-native';
@@ -23,6 +23,7 @@ import {
     TotalProductsText,
 } from './styles'
 import EmptyCart from '../../components/EmptyCart';
+import formatValue from '../../utils/formatValue'
 
 import * as CartActions from '../../store/modules/cart/actions'
 
@@ -30,6 +31,10 @@ export default function Cart() {
 
     const dispactch = useDispatch()
     const products = useSelector(({ cart }) => cart)
+
+    useEffect(() => {
+        console.log(products)
+    }, [products])
 
     const cartSize = useMemo(() => {
         return products.length || 0;
@@ -112,7 +117,7 @@ export default function Cart() {
             <TotalProductsContainer>
                 <Feather name="shopping-cart" color="#fff" size={24} />
                 <TotalProductsText>{cartSize} {cartSize === 1 ? 'item' : 'itens'}</TotalProductsText>
-                <SubTotalValue>R$ {cartTotal}</SubTotalValue>
+                <SubTotalValue>{formatValue(cartTotal)}</SubTotalValue>
             </TotalProductsContainer>
 
         </Container>

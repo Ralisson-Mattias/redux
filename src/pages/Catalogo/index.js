@@ -54,6 +54,7 @@ export default function Catalogo() {
                     ListFooterComponentStyle={{
                         height: 80
                     }}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <Product>
                             <ProductImage source={{ uri: item.image_url }} />
