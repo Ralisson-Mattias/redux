@@ -1,12 +1,22 @@
-import React from 'react'
-import { Feather } from '@expo/vector-icons'
+import React, { useEffect } from 'react'
+import { Container, EmptyCartContainer, EmptyCartText } from './styles'
 
-import { Container, EmptyCartText } from './styles'
+import LottieView from 'lottie-react-native';
 
 export default function EmptyCart() {
+
     return (
         <Container>
-            <Feather name="slash" size={38} color="#f3f9ff"/>
+
+            <EmptyCartContainer>
+                <LottieView
+                    source={require('../../../assets/empty.json')}
+                    resizeMode="cover"
+                    autoPlay
+                    loop
+                />
+            </EmptyCartContainer>
+
             <EmptyCartText>Seu carrinho está vazio</EmptyCartText>
         </Container>
     )
