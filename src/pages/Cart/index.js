@@ -32,10 +32,6 @@ export default function Cart() {
     const dispactch = useDispatch()
     const products = useSelector(({ cart }) => cart)
 
-    useEffect(() => {
-        console.log(products)
-    }, [products])
-
     const cartSize = useMemo(() => {
         return products.length || 0;
     }, [products])
