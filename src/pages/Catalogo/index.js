@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux'
 import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons'
 
@@ -6,6 +7,7 @@ import FloatingCart from '../../components/FloatingCart'
 
 import formatValue from '../../utils/formatValue'
 import api from '../../services/api'
+import * as CartActions from '../../store/modules/cart/actions'
 
 import {
     Container,
@@ -19,8 +21,11 @@ import {
     ProductPrice,
     ProductTitle,
 } from './styles'
+import { CartPricing } from '../../components/FloatingCart/styles';
 
 export default function Catalogo() {
+
+    const dispatch = useDispatch()
 
     const [products, setProducts] = useState([])
 
@@ -32,6 +37,11 @@ export default function Catalogo() {
 
         loadProducts()
     }, [])
+
+    function handleAddToCart(id) {
+        dispatch(CartActions.addToCartRequest(id))
+    }
+
 
     return (
         <Container>
@@ -49,9 +59,8 @@ export default function Catalogo() {
                             <ProductImage source={{ uri: item.image_url }} />
                             <ProductTitle>{item.title}</ProductTitle>
                             <PriceContainer>
-                                {/* <ProductPrice>R$ {item.price}</ProductPrice> */}
                                 <ProductPrice>{`${formatValue(item.price)}`}</ProductPrice>
-                                <ProductButton onPress={() => { }}>
+                                <ProductButton onPress={() => handleAddToCart(item.id)}>
                                     <ProductButtonText>Adicionar</ProductButtonText>
                                     <Feather size={30} name="plus-circle" color="#d1d7e9" />
                                 </ProductButton>

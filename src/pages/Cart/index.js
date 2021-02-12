@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Feather } from '@expo/vector-icons'
 import { View } from 'react-native';
 
@@ -24,24 +24,40 @@ import {
 } from './styles'
 import EmptyCart from '../../components/EmptyCart';
 
+import * as CartActions from '../../store/modules/cart/actions'
+
 export default function Cart() {
 
-    const [products, setProducts] = useState([])
+    const dispactch = useDispatch()
+    const products = useSelector(({ cart }) => cart)
 
     const cartSize = useMemo(() => {
         return products.length || 0;
     }, [products])
 
     const cartTotal = useMemo(() => {
-        
+
         const cartAmount = products.reduce((acc, product) => {
-            const totalPrice = acc + (product.price * product.quantity)
+            const totalPrice = acc + (product.price * product.amount)
             return totalPrice
         }, 0)
 
         return cartAmount
 
-    },[products])
+    }, [products])
+
+
+    function increment(product) {
+        dispactch(CartActions.updateAmountRequest(product.id, product.amount + 1))
+    }
+
+    function decrement(product) {
+        dispactch(CartActions.updateAmountRequest(product.id, product.amount - 1))
+    }
+
+    function removeFromCart(id) {
+        dispactch(CartActions.removeFromCart(id))
+    }
 
     return (
         <Container>
@@ -67,21 +83,23 @@ export default function Cart() {
                                         R$ {item.price}
                                     </ProductSinglePrice>
                                     <TotalContainer>
-                                        <ProductQuantity>{`${item.quantity}x`}</ProductQuantity>
+                                        <ProductQuantity>{`${item.amount}x`}</ProductQuantity>
 
                                         <ProductPrice>
-                                            R${item.price * item.quantity}
+                                            R${item.price * item.amount}
                                         </ProductPrice>
                                     </TotalContainer>
                                 </ProductPriceContainer>
                             </ProductTitleContainer>
 
                             <ActionContainer>
-                                <ActionButton onPress={() => { }}>
+                                <ActionButton onPress={() => increment(item)}>
                                     <Feather name="plus" color="#e83f5b" size={16} />
                                 </ActionButton>
 
-                                <ActionButton onPress={() => { }}>
+                                <ActionButton onPress={() =>
+                                    item.amount > 1 ? decrement(item) : removeFromCart(item.id)}
+                                >
                                     <Feather name="minus" color="#e83f5b" size={16} />
                                 </ActionButton>
                             </ActionContainer>
